@@ -22,6 +22,22 @@
         "type": "oauthSetting"
       }
     },
-    "iconBrandColor": "#0078D6"
+    "iconBrandColor": "#0078D6",
+      "policyTemplateInstances": [
+      {
+        "parameters": {
+          "x-ms-apimTemplate-operationName": [
+            "OnAllNewAlerts"
+          ],
+          "x-ms-apimTemplateParameter.triggerConfig": {
+            "$filter": "createdDateTime gt @{triggerBody().value[0].createdDateTime}"
+          },
+          "x-ms-apimTemplateParameter.triggerDataPath": "@triggerBody().value"
+        },
+        "templateId": "pollingtrigger",
+        "title": "PollingTriggerPolicy_cfbd86f5-06b4-b971-3817-dfe41ddde62c",
+        "type": "PollingTrigger"
+      }
+    ]
   }
 }
