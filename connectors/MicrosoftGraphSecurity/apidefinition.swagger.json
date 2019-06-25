@@ -350,7 +350,7 @@
               "properties": {
                 "resource": {
                   "type": "string",
-                  "description": "Specify the resource that will be monitored for changes. Do not include base URL (https://graph.microsoft.com/v1.0/). Include security/alerts followed by the odata query. For e.g. security/alerts?$filter=status eq ‘New’",
+                  "description": "Specify the resource that will be monitored for changes. Do not include base URL (https://graph.microsoft.com/v1.0/). Include security/alerts followed by the odata query. For e.g. security/alerts?$filter=status eq Â‘NewÂ’",
                   "title": "Resource URL",
                   "x-ms-visibility": "important"
                 },
@@ -463,6 +463,70 @@
           }
         ],
         "x-ms-visibility": "important"
+      }
+    },
+      "/trigger/v1.0/security/alerts": {
+      "get": {
+         "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "@odata.count": {
+                  "type": "integer",
+                  "format": "int32",
+                  "title": "Alerts count",
+                  "description": "The number of alerts returned"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Alert"
+                  },
+                  "title": "Alerts",
+                  "description": "The alerts returned"
+                },
+                "@odata.nextLink": {
+                  "type": "string",
+                  "title": "Next link",
+                  "description": "A link to get the next results in case there are more results than requested"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Unauthorized, get admin access grant"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "default": {
+            "description": "Operation Failed."
+          }
+        },
+        "summary": "On all new alerts",
+        "description": "Triggers on new alerts",
+        "operationId": "OnAllNewAlerts",
+        "x-ms-visibility": "important",
+        "x-ms-trigger": "batch",
+        "x-ms-trigger-metadata": {
+          "mode": "polling",
+          "kind": "query"
+        },
+        "parameters": [
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "x-ms-trigger-hint": "Create new alerts to trigger the flow"
       }
     }
   },
@@ -1196,7 +1260,7 @@
               "domainName": {
                 "type": "string",
                 "title": "Domain name",
-                "description": "NetBIOS/Active Directory Domain of user account  (i.e. domain\\account format)."
+                "description": "NetBIOS/Active Directory Domain of user account Â (i.e. domain\\account format)."
               },
               "emailRole": {
                 "type": "string",
